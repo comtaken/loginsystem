@@ -11,5 +11,3 @@
     を入力
 
 ・バリデーション機能
-# loginsystem
-# loginsystem

@@ -1,4 +1,5 @@
 <?php
+require_once '../classes/UserLogic.php';
 /**
  * バリデーション（ユーザ名、メールアドレス、パスワード）
  * エラーメッセージを返す。
@@ -22,6 +23,13 @@ if($password !== $password_conf) {
 }
 
 if (count($err) === 0){
+    //ユーザーを登録する処理
+    //静的に使う場合は::を入れ、class側の関数ではstaticを入れる
+    $hasCreated = UserLogic::createUser($_POST);
+
+    if(!$hasCreated) {
+        $err[] = '登録に失敗しました';
+    }
 
 }
 ?>
