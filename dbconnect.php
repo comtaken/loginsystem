@@ -1,8 +1,9 @@
 <?php
-require_once 'env.php';
+//外部から読み込み
+require_once __DIR__ . '/../env.php';
 function connect()
 {
-//TODO: envファイル用意
+//エラー出ているが接続は可能
     $host = DB_HOST;
     $db = DB_NAME;
     $user = DB_USER;
@@ -14,7 +15,6 @@ function connect()
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
         ]);
-
        return $pdo;
     } catch(PDOException $e){
         echo 'エラー発生: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES) . '<br>';
@@ -23,5 +23,4 @@ function connect()
     $dbh = null;
 
 }
-
 ?>
