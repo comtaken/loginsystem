@@ -8,7 +8,6 @@ session_start();
  */
 $err = [];
  
-
 if(!$email = filter_input(INPUT_POST, 'email')) {
     $err['email'] = 'メールアドレスを記入してください。';
 }
@@ -19,11 +18,18 @@ if(!$password = filter_input(INPUT_POST, 'password')){
 if (count($err) > 0){
     // エラーがあった場合は戻す
     $_SESSION = $err;
-
     header('Location: login.php');
+    return;
 }
 //ログイン成功時の処理
-echo 'ログインしました。';
+$result = UserLogic::login($email, $password);
+
+//ログイン失敗時の処理
+if (!$result) {
+    header('Location: login.php');
+    return;
+} 
+echo 'ログイン成功です。';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +45,6 @@ echo 'ログインしました。';
         <p><?php echo $e ?></p>
     <?php endforeach ?>
     <?php else : ?>   
-    <p>ユーザ登録完了しました。</p>
     <?php endif ?>
     <a href="./login.php">戻る</a>
 </body>
